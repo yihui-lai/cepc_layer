@@ -1,0 +1,16 @@
+universe = vanilla
+Executable = condor-executable_1GeV_pion_N500_9.sh
+should_transfer_files = NO
+Requirements = TARGET.FileSystemDomain == "privnet"
+minute = 60
+on_exit_hold =   (ExitCode != 0)
+on_exit_remove =   (ExitCode == 0)
+periodic_release = NumJobStarts<3 && (CurrentTime - JobCurrentStartDate) >= 30 * $(MINUTE)
+job_machine_attrs = Machine
+job_machine_attrs_history_length = 3
+requirements = target.machine =!= MachineAttrMachine1 && target.machine =!= MachineAttrMachine2
+Output = /data/users/yihuilai/cepc_layer/condor_output/sce_$(cluster)_$(process).stdout
+Error =  /data/users/yihuilai/cepc_layer/condor_output/sce_$(cluster)_$(process).stderr
+Log =    /data/users/yihuilai/cepc_layer/condor_output/sce_$(cluster)_$(process).condor
+Arguments = SCE
+Queue 1
