@@ -10,7 +10,7 @@
 //need to change parameters in get_reso_vs_Ein_dream(){...}
 
 //double sampling_frac_e_scinti[6]={65.55,60.49,58.95,58.13,57.22,56.59};
-double sampling_frac_e_scinti = 1/0.019;
+double sampling_frac_e_scinti = 34.29;
 bool Count_CherenPhoton_in_scinti_fiber = false;
 bool Count_scinti_in_cheren_fiber = true;
 bool savepictures = true;
@@ -45,11 +45,11 @@ void CC_scinti(const char *inputfilename, const char *tagname, double energy, do
     char dra_strs[500];
     if (Count_scinti_in_cheren_fiber)
     {
-        sprintf(dra_strs, "(depositedIonEnergyECAL_f[1] + depositedIonEnergyECAL_r[1]+depositedIonEnergyECAL_f[2] + depositedIonEnergyECAL_r[2]) / %g>>htest", energy / sampling_frac_e_scinti);
+        sprintf(dra_strs, "(depositedIonEnergyECAL_f[1] + depositedIonEnergyECAL_r[1]+depositedIonEnergyECAL_f[2] + depositedIonEnergyECAL_r[2]) / %g>>nhist", energy / sampling_frac_e_scinti);
     }
     else
     {
-        sprintf(dra_strs, "(depositedIonEnergyECAL_f[1] + depositedIonEnergyECAL_r[1]) / %g>>htest", energy / sampling_frac_e_scinti);
+        sprintf(dra_strs, "(depositedIonEnergyECAL_f[1] + depositedIonEnergyECAL_r[1]) / %g>>nhist", energy / sampling_frac_e_scinti);
     }
     t1->Draw(dra_strs);
 
@@ -188,18 +188,17 @@ void get_reso_vs_Ein_dream()
     //chnage the following parameters
     ///////////////////////////////////////////
     // draw somthing vs Etrue
-    int draw_option = 4; //1 for scinti, 2 for Cheren, 3 for electric, 4 for c/s
+    int draw_option = 1; //1 for scinti, 2 for Cheren, 3 for electric, 4 for c/s
 
-    int npoints = 1; //how many energy points
+    int npoints = 6; //how many energy points
     double arrres[npoints], aatruemean[npoints];
-    aatruemean[0] = 1;
-    /*
-    aatruemean[1] = 40;
-    aatruemean[2] = 70;
+    aatruemean[0] = 5;
+    aatruemean[1] = 10;
+    aatruemean[2] = 50;
     aatruemean[3] = 100;
     aatruemean[4] = 150;
-    aatruemean[5] = 200;*/
-    char dtag[100] = ""; // file tag, shoule be changed
+    aatruemean[5] = 375;
+    char dtag[100] = "layer"; // file tag, shoule be changed
 
     ///////////////////////////////////////////
     //end
