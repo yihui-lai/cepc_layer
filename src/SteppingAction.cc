@@ -517,7 +517,7 @@ void SteppingAction::UserSteppingAction(const G4Step *theStep)
         CreateTree::Instance()->depositedEnergyECAL_cheren_f_particleID[3] += energyPhoton / GeV;
         CreateTree::Instance()->depositedIonEnergyECAL_cheren_f_particleID[3] += energyIonPhoton / GeV;
 
-        CreateTree::Instance()->depositedEnergyECAL_cheren_f_particleID[4] += energyIonPion_p / GeV;
+        CreateTree::Instance()->depositedEnergyECAL_cheren_f_particleID[4] += energyPion_p / GeV;
         CreateTree::Instance()->depositedIonEnergyECAL_cheren_f_particleID[4] += energyIonPion_p / GeV;
 
         CreateTree::Instance()->depositedEnergyECAL_cheren_f_particleID[5] += energyKion / GeV;
