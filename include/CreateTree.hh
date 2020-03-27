@@ -104,39 +104,33 @@ public:
   float depositedElecEnergySolenoid;
   float depositedElecEnergyWorld;
 
-  //store the energy deposition in fiber
+  //store the energy deposition by components
 
-  float depositedEnergyECAL_absorb_f[8];
-  float depositedEnergyECAL_absorb_r[8];
-  float depositedIonEnergyECAL_absorb_f[8];
-  float depositedIonEnergyECAL_absorb_r[8];
-  float depositedElecEnergyECAL_absorb_f[8];
-  float depositedElecEnergyECAL_absorb_r[8];
+  float depositedEnergyECAL_absorb_f_particleID[8];
+  float depositedEnergyECAL_absorb_r_particleID[8];
+  float depositedIonEnergyECAL_absorb_f_particleID[8];
+  float depositedIonEnergyECAL_absorb_r_particleID[8];
 
-  float depositedEnergyECAL_scinti_f[8];
-  float depositedEnergyECAL_scinti_r[8];
-  float depositedIonEnergyECAL_scinti_f[8];
-  float depositedIonEnergyECAL_scinti_r[8];
-  float depositedElecEnergyECAL_scinti_f[8];
-  float depositedElecEnergyECAL_scinti_r[8];
+  float depositedEnergyECAL_scinti_f_particleID[8];
+  float depositedEnergyECAL_scinti_r_particleID[8];
+  float depositedIonEnergyECAL_scinti_f_particleID[8];
+  float depositedIonEnergyECAL_scinti_r_particleID[8];
 
-  float depositedEnergyECAL_cheren_f[8];
-  float depositedEnergyECAL_cheren_r[8];
-  float depositedIonEnergyECAL_cheren_f[8];
-  float depositedIonEnergyECAL_cheren_r[8];
-  float depositedElecEnergyECAL_cheren_f[8];
-  float depositedElecEnergyECAL_cheren_r[8];
+  float depositedEnergyECAL_cheren_f_particleID[8];
+  float depositedEnergyECAL_cheren_r_particleID[8];
+  float depositedIonEnergyECAL_cheren_f_particleID[8];
+  float depositedIonEnergyECAL_cheren_r_particleID[8];
 
   int tot_phot_cer_Timing_f_total;
   int tot_phot_cer_Timing_r_total;
   int tot_phot_cer_ECAL_scinti_f_total;
   int tot_phot_cer_ECAL_scinti_r_total;
-  int tot_phot_cer_ECAL_scinti_f[8]; //cer in front cheren fiber
-  int tot_phot_cer_ECAL_scinti_r[8]; //cer in rear cheren fiber
+  int tot_phot_cer_ECAL_scinti_f_particleID[8]; 
+  int tot_phot_cer_ECAL_scinti_r_particleID[8]; 
   int tot_phot_cer_ECAL_cheren_f_total;
   int tot_phot_cer_ECAL_cheren_r_total;
-  int tot_phot_cer_ECAL_cheren_f[8]; //cer in front cheren fiber
-  int tot_phot_cer_ECAL_cheren_r[8]; //cer in rear cheren fiber
+  int tot_phot_cer_ECAL_cheren_f_particleID[8]; 
+  int tot_phot_cer_ECAL_cheren_r_particleID[8];
   int tot_phot_cer_HCAL;
 
   /***************** begin to seperate energy into different channels    ******************/

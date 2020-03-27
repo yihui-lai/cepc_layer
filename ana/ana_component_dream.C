@@ -1,8 +1,8 @@
 void ana_component_dream()
 {
-    //draw the various components of the energy type we are interested 
-    bool savepictures = false;
-    int draw_option = 3;  //1 is scintillating energy, 2 is Cherenkov energy, 3 is Cherenkov photons 
+    //draw the various components of the energy type we are interested
+    //bool savepictures = false;
+    int draw_option = 1; //1 is scintillating energy, 2 is Cherenkov energy, 3 is Cherenkov photons, 4 for energy vs depth, 5 for energy vs time
 
     bool set_normlize = true;
     TFile *fp = new TFile("layer_brass_plastics408_pion_60GeV_ana.root"); //use ana file here, not the original root file
@@ -15,6 +15,15 @@ void ana_component_dream()
     TH1F *hpp;
     TH1F *hppin;
     TH1F *hppip;
+
+    TH2F *hp2;
+    TH2F *hpen2;
+    TH2F *hpep2;
+    TH2F *hpgamma2;
+    TH2F *hpn2;
+    TH2F *hpp2;
+    TH2F *hppin2;
+    TH2F *hppip2;
 
     if (draw_option == 1)
     {
@@ -39,7 +48,7 @@ void ana_component_dream()
         hppin = (TH1F *)fp->Get("hcherenE_pin");
         hppip = (TH1F *)fp->Get("hcherenE_pip");
     }
-    else
+    else if (draw_option == 3)
     {
         hp = (TH1F *)fp->Get("hcherenN");
         hpen = (TH1F *)fp->Get("hcherenN_en");
@@ -50,6 +59,121 @@ void ana_component_dream()
         hppin = (TH1F *)fp->Get("hcherenN_pin");
         hppip = (TH1F *)fp->Get("hcherenN_pip");
     }
+    else if (draw_option == 4)
+    {
+
+        hp2 = (TH2F *)fp->Get("h_localtime_z_st");
+        hpen2 = (TH2F *)fp->Get("h_localtime_z_st_en");
+        hpep2 = (TH2F *)fp->Get("h_localtime_z_st_ep");
+        hpgamma2 = (TH2F *)fp->Get("h_localtime_z_st_gamma");
+        hpn2 = (TH2F *)fp->Get("h_localtime_z_st_n");
+        hpp2 = (TH2F *)fp->Get("h_localtime_z_st_p");
+        hppin2 = (TH2F *)fp->Get("h_localtime_z_st_pin");
+        hppip2 = (TH2F *)fp->Get("h_localtime_z_st_pip");
+
+        hp = (TH1F *)hp2->ProjectionX();
+        hpen = (TH1F *)hpen2->ProjectionX();
+        hpep = (TH1F *)hpep2->ProjectionX();
+        hpgamma = (TH1F *)hpgamma2->ProjectionX();
+        hpn = (TH1F *)hpn2->ProjectionX();
+        hpp = (TH1F *)hpp2->ProjectionX();
+        hppin = (TH1F *)hppin2->ProjectionX();
+        hppip = (TH1F *)hppip2->ProjectionX();
+    }
+    else if (draw_option == 5)
+    {
+
+        hp2 = (TH2F *)fp->Get("h_localtime_z_st");
+        hpen2 = (TH2F *)fp->Get("h_localtime_z_st_en");
+        hpep2 = (TH2F *)fp->Get("h_localtime_z_st_ep");
+        hpgamma2 = (TH2F *)fp->Get("h_localtime_z_st_gamma");
+        hpn2 = (TH2F *)fp->Get("h_localtime_z_st_n");
+        hpp2 = (TH2F *)fp->Get("h_localtime_z_st_p");
+        hppin2 = (TH2F *)fp->Get("h_localtime_z_st_pin");
+        hppip2 = (TH2F *)fp->Get("h_localtime_z_st_pip");
+
+        hp = (TH1F *)hp2->ProjectionY();
+        hpen = (TH1F *)hpen2->ProjectionY();
+        hpep = (TH1F *)hpep2->ProjectionY();
+        hpgamma = (TH1F *)hpgamma2->ProjectionY();
+        hpn = (TH1F *)hpn2->ProjectionY();
+        hpp = (TH1F *)hpp2->ProjectionY();
+        hppin = (TH1F *)hppin2->ProjectionY();
+        hppip = (TH1F *)hppip2->ProjectionY();
+    }
+    if (draw_option == 4 || draw_option == 5)
+    {
+        double time_min, time_max;
+        double z_min, z_max;
+        time_min = 0.00001;
+        time_max = 0.5;
+        z_min = 100;
+        z_max = 2000;
+
+        TCanvas *t_pro = new TCanvas();
+        gStyle->SetOptStat(0000);
+
+        hp->Draw("HIST");
+        hp->SetLineColor(1);
+        if (draw_option == 4)
+        {
+            hp->GetXaxis()->SetTitle("Depth (mm)");
+            hp->GetYaxis()->SetTitle("Energy (GeV)");
+            hp->GetXaxis()->SetRangeUser(z_min, z_max);
+        }
+        else
+        {
+            t_pro->SetLogy();
+            hp->GetXaxis()->SetTitle("localtime (ns)");
+            hp->GetYaxis()->SetTitle("Energy (GeV)");
+            hp->GetXaxis()->SetRangeUser(time_min, time_max);
+        }
+
+        hpen->Draw("HIST same");
+        hpen->SetLineColor(4);
+        hpep->Draw("HIST same");
+        hpep->SetLineColor(2);
+        hpgamma->Draw("HIST same");
+        hpgamma->SetLineColor(3);
+        hpn->Draw("HIST same");
+        hpn->SetLineColor(46);
+        hpp->Draw("HIST same");
+        hpp->SetLineColor(6);
+        hppin->Draw("HIST same");
+        hppin->SetLineColor(30);
+        hppip->Draw("HIST same");
+        hppip->SetLineColor(28);
+        hpen->SetLineWidth(3);
+        hpen->SetLineWidth(3);
+        hpep->SetLineWidth(3);
+        hpgamma->SetLineWidth(3);
+        hpn->SetLineWidth(3);
+        hpp->SetLineWidth(3);
+        hppin->SetLineWidth(3);
+        hppip->SetLineWidth(3);
+        float x1_l = 0.8;
+        float y1_l = 0.80;
+        float dx_l = 0.20;
+        float dy_l = 0.2;
+        float x0_l = x1_l - dx_l;
+        float y0_l = y1_l - dy_l;
+        TLegend *lgd = new TLegend(x0_l, y0_l, x1_l, y1_l);
+        lgd->SetBorderSize(0);
+        lgd->SetTextSize(0.04);
+        lgd->SetTextFont(62);
+        lgd->SetFillColor(0);
+
+        lgd->AddEntry(hp, "total", "l");
+        lgd->AddEntry(hpen, "e-", "l");
+        lgd->AddEntry(hpep, "e+", "l");
+        lgd->AddEntry(hpgamma, "#gamma", "l");
+        lgd->AddEntry(hpn, "n", "l");
+        lgd->AddEntry(hpp, "p", "l");
+        lgd->AddEntry(hppin, "#pi -", "l");
+        lgd->AddEntry(hppip, "#pi +", "l");
+        lgd->Draw();
+        return;
+    }
 
     int imax = hp->GetMaximumBin();
     double amax = hp->GetBinCenter(imax);
@@ -59,7 +183,8 @@ void ana_component_dream()
     TF1 *f1 = new TF1("f1", "gaus", amax - 2 * arms, amax + 2 * arms);
     hp->Fit("f1", "R Q");
     double norm_c = 1.0 / f1->GetParameter(1);
-    if(!set_normlize) norm_c = 1;
+    if (!set_normlize)
+        norm_c = 1;
 
     std::cout << "hist norm is " << norm_c << std::endl;
     double y_max = hp->GetMaximum();

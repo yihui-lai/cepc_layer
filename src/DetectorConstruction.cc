@@ -200,7 +200,9 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
   float pos_Z_DT1 = -20 * mm;
   float pos_Z_DT2 = 30 * mm;
   float pos_Z_DE1 = 70 * mm;
-  float pos_Z_DE2 = ecal_timing_distance + 4000*(hole_diameter + fiber_diameter*3) + 20 * mm;
+  const int NECAL_CRYST = 100; 
+  double distancechange = 2*NECAL_CRYST*(hole_diameter + 3*fiber_diameter);
+  float pos_Z_DE2 = ecal_timing_distance + distancechange + 20 * mm;
 
   if (services_thick > 0)
   {
@@ -457,8 +459,6 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
  // G4LogicalVolume *ecalDetL = new G4LogicalVolume(ecalDetS, DeMaterial, "ecalDetL", 0, 0, 0);
 
   // ECAL physical placement
-  const int NECAL_CRYST = 100; //2500;
-  double distancechange = 2*NECAL_CRYST*(hole_diameter + 3*fiber_diameter);
   G4VPhysicalVolume *ecalCrystalP_f[NECAL_CRYST];
   G4VPhysicalVolume *ecalCrystalP_r[NECAL_CRYST];
 
@@ -488,6 +488,8 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
 
   G4double x_pos[NECAL_CRYST];
   G4double y_pos[NECAL_CRYST];
+  G4double z_pos_f[NECAL_CRYST];
+  G4double z_pos_r[NECAL_CRYST];
   int nArrayECAL = (int)sqrt(NECAL_CRYST);
 
   int iCrystal;
@@ -502,7 +504,8 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
       iCrystal = nArrayECAL * iX + iY;
       //[iCrystal] = (iX - nArrayECAL / 2) * (ecal_front_face + alveola_thickness); // position the baricenter of crystals and then rotating them by
       //y_pos[iCrystal] = (iY - nArrayECAL / 2) * (ecal_front_face / cos(pointingAngle * deg) + alveola_thickness);
-
+      z_pos_f[iCrystal] = iCrystal*( hole_diameter+ fiber_diameter*3);
+      z_pos_r[iCrystal] = NECAL_CRYST*(hole_diameter + fiber_diameter*3)+iCrystal*( hole_diameter+ fiber_diameter*3);
       //      x_pos[iCrystal] = (iX-nArrayECAL/2)*(ecal_front_face + alveola_thickness);	// position the baricenter of crystals and then rotating them by
       //      y_pos[iCrystal] =( iY-nArrayECAL/2)*(ecal_front_face + alveola_thickness);
 
@@ -520,29 +523,29 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
       //add dream detector instead of the original one
 
       sprintf(name, "ecalCrystalP_f_absorb_%d", iCrystal);
-      ecalCrystalP_f[iCrystal] = new G4PVPlacement(0, G4ThreeVector(0, 0, ecal_timing_distance + iCrystal*( hole_diameter+ fiber_diameter*3)), ecalCrystalL_f_absorb, name, worldLV, false, 0);
+      ecalCrystalP_f[iCrystal] = new G4PVPlacement(0, G4ThreeVector(0, 0, ecal_timing_distance + z_pos_f[iCrystal]+0.5*hole_diameter), ecalCrystalL_f_absorb, name, worldLV, false, 0);
       sprintf(name, "ecalCrystalP_r_absorb_%d", iCrystal);
-      ecalCrystalP_r[iCrystal] = new G4PVPlacement(0, G4ThreeVector(0, 0, ecal_timing_distance + NECAL_CRYST*(hole_diameter + fiber_diameter*3) + iCrystal*( hole_diameter+ fiber_diameter*3)), ecalCrystalL_r_absorb, name, worldLV, false, 0);
+      ecalCrystalP_r[iCrystal] = new G4PVPlacement(0, G4ThreeVector(0, 0, ecal_timing_distance + z_pos_r[iCrystal]+0.5*hole_diameter), ecalCrystalL_r_absorb, name, worldLV, false, 0);
       /*
       sprintf(name, "ecalCrystalP_f_hollow%d", iCrystal);
       ecalCrystalP_f_hollow[iCrystal] = new G4PVPlacement(piRotEcal, G4ThreeVector(x_pos[iCrystal], y_pos[iCrystal], ecal_timing_distance+ecal_front_length*0.5), ecalCrystalL_f_hollow, name, worldLV, false, 0);
       sprintf(name, "ecalCrystalP_r_hollow%d", iCrystal);
       ecalCrystalP_r_hollow[iCrystal] = new G4PVPlacement(piRotEcal, G4ThreeVector(x_pos[iCrystal], y_pos[iCrystal], ecal_timing_distance + ecal_front_length + ecal_rear_length*0.5), ecalCrystalL_r_hollow, name, worldLV, false, 0);
-*/
+      */
       sprintf(name, "ecalCrystalP_f_fiber_scinti_%d", iCrystal);
-      ecalCrystalP_f_fiber_scinti[iCrystal] = new G4PVPlacement(piRotEcal, G4ThreeVector(0, 0, ecal_timing_distance + iCrystal*( hole_diameter+fiber_diameter*3)+0.5*(hole_diameter+fiber_diameter)), ecalCrystalL_f_fiber_scinti, name, worldLV, false, 0);
+      ecalCrystalP_f_fiber_scinti[iCrystal] = new G4PVPlacement(piRotEcal, G4ThreeVector(0, 0, ecal_timing_distance + z_pos_f[iCrystal]+hole_diameter+0.5*fiber_diameter), ecalCrystalL_f_fiber_scinti, name, worldLV, false, 0);
       sprintf(name, "ecalCrystalP_r_fiber_scinti_%d", iCrystal);
-      ecalCrystalP_r_fiber_scinti[iCrystal] = new G4PVPlacement(piRotEcal, G4ThreeVector(0, 0, ecal_timing_distance + NECAL_CRYST*(hole_diameter + fiber_diameter*3) + iCrystal*( hole_diameter+fiber_diameter*3)+0.5*(hole_diameter+fiber_diameter)), ecalCrystalL_r_fiber_scinti, name, worldLV, false, 0);
+      ecalCrystalP_r_fiber_scinti[iCrystal] = new G4PVPlacement(piRotEcal, G4ThreeVector(0, 0, ecal_timing_distance + z_pos_r[iCrystal]+hole_diameter+0.5*fiber_diameter), ecalCrystalL_r_fiber_scinti, name, worldLV, false, 0);
 
       sprintf(name, "ecalCrystalP_f_fiber_cherenc_%d", iCrystal);
-      ecalCrystalP_f_fiber_cherenc[iCrystal] = new G4PVPlacement(piRotEcal, G4ThreeVector(0, 0, ecal_timing_distance + iCrystal*( hole_diameter+fiber_diameter*3 )+0.5*(hole_diameter+fiber_diameter)+fiber_diameter), ecalCrystalL_f_fiber_cherenc, name, worldLV, false, 0);
+      ecalCrystalP_f_fiber_cherenc[iCrystal] = new G4PVPlacement(piRotEcal, G4ThreeVector(0, 0, ecal_timing_distance + z_pos_f[iCrystal]+hole_diameter+1.5*fiber_diameter), ecalCrystalL_f_fiber_cherenc, name, worldLV, false, 0);
       sprintf(name, "ecalCrystalP_r_fiber_cherenc_%d", iCrystal);
-      ecalCrystalP_r_fiber_cherenc[iCrystal] = new G4PVPlacement(piRotEcal, G4ThreeVector(0, 0, ecal_timing_distance + NECAL_CRYST*(hole_diameter + fiber_diameter*3) + iCrystal*( hole_diameter+fiber_diameter*3)+0.5*(hole_diameter+fiber_diameter)+fiber_diameter), ecalCrystalL_r_fiber_cherenc, name, worldLV, false, 0);
+      ecalCrystalP_r_fiber_cherenc[iCrystal] = new G4PVPlacement(piRotEcal, G4ThreeVector(0, 0, ecal_timing_distance + z_pos_r[iCrystal]+hole_diameter+1.5*fiber_diameter), ecalCrystalL_r_fiber_cherenc, name, worldLV, false, 0);
 
       sprintf(name, "ecalCrystalP_f_fiber_cherenp_%d", iCrystal);
-      ecalCrystalP_f_fiber_cherenp[iCrystal] = new G4PVPlacement(piRotEcal, G4ThreeVector(0, 0, ecal_timing_distance + iCrystal*( hole_diameter+fiber_diameter*3)+0.5*(hole_diameter+fiber_diameter)+fiber_diameter+fiber_diameter), ecalCrystalL_f_fiber_cherenp, name, worldLV, false, 0);
+      ecalCrystalP_f_fiber_cherenp[iCrystal] = new G4PVPlacement(piRotEcal, G4ThreeVector(0, 0, ecal_timing_distance + z_pos_f[iCrystal]+hole_diameter+2.5*fiber_diameter), ecalCrystalL_f_fiber_cherenp, name, worldLV, false, 0);
       sprintf(name, "ecalCrystalP_r_fiber_cherenp_%d", iCrystal);
-      ecalCrystalP_r_fiber_cherenp[iCrystal] = new G4PVPlacement(piRotEcal, G4ThreeVector(0, 0, ecal_timing_distance + NECAL_CRYST*(hole_diameter + fiber_diameter*3) + iCrystal*( hole_diameter+fiber_diameter*3)+0.5*(hole_diameter+fiber_diameter)+fiber_diameter+fiber_diameter), ecalCrystalL_r_fiber_cherenp, name, worldLV, false, 0);
+      ecalCrystalP_r_fiber_cherenp[iCrystal] = new G4PVPlacement(piRotEcal, G4ThreeVector(0, 0, ecal_timing_distance + z_pos_r[iCrystal]+hole_diameter+2.5*fiber_diameter), ecalCrystalL_r_fiber_cherenp, name, worldLV, false, 0);
       //
 
       sprintf(name, "ecalGapP_f_%d", iCrystal);

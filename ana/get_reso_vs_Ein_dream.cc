@@ -10,8 +10,9 @@
 //need to change parameters in get_reso_vs_Ein_dream(){...}
 
 //double sampling_frac_e_scinti[6]={65.55,60.49,58.95,58.13,57.22,56.59};
-double sampling_frac_e_scinti = 60;
-bool Count_CherenPhoton_in_scinti = false;
+double sampling_frac_e_scinti = 1/0.019;
+bool Count_CherenPhoton_in_scinti_fiber = false;
+bool Count_scinti_in_cheren_fiber = true;
 bool savepictures = true;
 
 void CC_scinti(const char *inputfilename, const char *tagname, double energy, double *aamean, double *aarms)
@@ -22,7 +23,14 @@ void CC_scinti(const char *inputfilename, const char *tagname, double energy, do
 
     TH1F *htest = new TH1F("htest", "htest", 100, 0.5, 1.5);
     char dra_str[500];
-    sprintf(dra_str, "(depositedEnergyECAL_f[1] - depositedIonEnergyECAL_f[1] + depositedEnergyECAL_r[1] - depositedIonEnergyECAL_r[1]) / %g>>htest", energy / sampling_frac_e_scinti);
+    if (Count_scinti_in_cheren_fiber)
+    {
+        sprintf(dra_str, "(depositedIonEnergyECAL_f[1] + depositedIonEnergyECAL_r[1]+depositedIonEnergyECAL_f[2] + depositedIonEnergyECAL_r[2]) / %g>>htest", energy / sampling_frac_e_scinti);
+    }
+    else
+    {
+        sprintf(dra_str, "(depositedIonEnergyECAL_f[1] + depositedIonEnergyECAL_r[1]) / %g>>htest", energy / sampling_frac_e_scinti);
+    }
     t1->Draw(dra_str);
 
     int imax = htest->GetMaximumBin();
@@ -35,7 +43,14 @@ void CC_scinti(const char *inputfilename, const char *tagname, double energy, do
 
     TH1F *nhist = new TH1F("nhist", "nhist", 100, amax - 3 * arms, amax + 3 * arms);
     char dra_strs[500];
-    sprintf(dra_strs, "(depositedEnergyECAL_f[1] - depositedIonEnergyECAL_f[1] + depositedEnergyECAL_r[1] - depositedIonEnergyECAL_r[1]) / %g>>nhist", energy / sampling_frac_e_scinti);
+    if (Count_scinti_in_cheren_fiber)
+    {
+        sprintf(dra_strs, "(depositedIonEnergyECAL_f[1] + depositedIonEnergyECAL_r[1]+depositedIonEnergyECAL_f[2] + depositedIonEnergyECAL_r[2]) / %g>>htest", energy / sampling_frac_e_scinti);
+    }
+    else
+    {
+        sprintf(dra_strs, "(depositedIonEnergyECAL_f[1] + depositedIonEnergyECAL_r[1]) / %g>>htest", energy / sampling_frac_e_scinti);
+    }
     t1->Draw(dra_strs);
 
     TF1 *f1 = new TF1("f1", "gaus", amax - 2 * arms, amax + 2 * arms);
@@ -69,7 +84,7 @@ void CC_cheren(const char *inputfilename, const char *tagname, double energy, do
     TH1F *htest = new TH1F("htest", "htest", 800, 0, 4000000);
 
     char dra_str[500];
-    if (Count_CherenPhoton_in_scinti)
+    if (Count_CherenPhoton_in_scinti_fiber)
     {
         sprintf(dra_str, "(tot_phot_cer_ECAL_scinti_f_total + tot_phot_cer_ECAL_scinti_r_total+tot_phot_cer_ECAL_cheren_f_total + tot_phot_cer_ECAL_cheren_r_total) >>htest");
     }
@@ -89,7 +104,7 @@ void CC_cheren(const char *inputfilename, const char *tagname, double energy, do
     TH1F *nhist = new TH1F("nhist", "nhist", 500, amax - 30 * arms, amax + 30 * arms);
 
     char dra_strs[500];
-    if (Count_CherenPhoton_in_scinti)
+    if (Count_CherenPhoton_in_scinti_fiber)
     {
         sprintf(dra_strs, "(tot_phot_cer_ECAL_scinti_f_total + tot_phot_cer_ECAL_scinti_r_total+tot_phot_cer_ECAL_cheren_f_total + tot_phot_cer_ECAL_cheren_r_total) >>nhist");
     }
@@ -169,28 +184,26 @@ void get_reso_vs_Ein_dream()
 
     std::cout << "running on normal files" << std::endl;
 
-
-///////////////////////////////////////////
-//chnage the following parameters 
-///////////////////////////////////////////
+    ///////////////////////////////////////////
+    //chnage the following parameters
+    ///////////////////////////////////////////
     // draw somthing vs Etrue
     int draw_option = 4; //1 for scinti, 2 for Cheren, 3 for electric, 4 for c/s
 
-    int npoints = 1;     //how many energy points
+    int npoints = 1; //how many energy points
     double arrres[npoints], aatruemean[npoints];
-    aatruemean[0] = 60;
+    aatruemean[0] = 1;
     /*
     aatruemean[1] = 40;
     aatruemean[2] = 70;
     aatruemean[3] = 100;
     aatruemean[4] = 150;
     aatruemean[5] = 200;*/
-    char dtag[100] = "layer_brass_plastics408"; // file tag, shoule be changed
-///////////////////////////////////////////
-//end
-///////////////////////////////////////////
+    char dtag[100] = ""; // file tag, shoule be changed
 
-
+    ///////////////////////////////////////////
+    //end
+    ///////////////////////////////////////////
 
     int nhst = 2;
     char filenames_p[npoints][50];
@@ -376,7 +389,7 @@ void get_reso_vs_Ein_dream()
         {
             t1->GetEntry(ii);
 
-            if (Count_CherenPhoton_in_scinti)
+            if (Count_CherenPhoton_in_scinti_fiber)
             {
                 C_E[ii] = (tot_phot_cer_ECAL_scinti_f_total + tot_phot_cer_ECAL_scinti_r_total + tot_phot_cer_ECAL_cheren_f_total + tot_phot_cer_ECAL_cheren_r_total) / cali_ce[loop_f];
             }
@@ -416,7 +429,7 @@ void get_reso_vs_Ein_dream()
         {
             t1->GetEntry(ii);
 
-            if (Count_CherenPhoton_in_scinti)
+            if (Count_CherenPhoton_in_scinti_fiber)
             {
                 yy = (tot_phot_cer_ECAL_scinti_f_total + tot_phot_cer_ECAL_scinti_r_total + tot_phot_cer_ECAL_cheren_f_total + tot_phot_cer_ECAL_cheren_r_total) / cali_ce[loop_f];
             }

@@ -3,4 +3,60 @@
 
 cmake -DGeant4_DIR=/cvmfs/geant4.cern.ch/geant4/10.5/x86_64-slc6-gcc63-opt/lib64/GEANT4-10.5.0
 
-Feel free to change the parameters in template/generate_temp.sh, which helps to generate condor files.
+##Feel free to change the parameters in template/generate_temp.sh, which helps to generate condor files.
+
+##There are some files in ./ana directory used to analyze the simulation data.
+ana_dream.cc is used to create a new root file which containing energy distributions and could be further used by ana_component_dream.C
+get_reso_vs_Ein_dream.cc is used to plot "something vs E_True"
+
+##The detector looks like this 
+
+                front                                                   rear
+| brass | scinti | Cheren1 | Cheren2 |                  | brass | scinti | Cheren1 | Cheren2 |
+|       |        |         |         |                  |       |        |         |         |
+|       |        |         |         |  ... repeat(100) |       |        |         |         |  ... repeat(100)
+|       |        |         |         |                  |       |        |         |         |
+
+Their material can be changed in file template_ts.cfg
+ecal_material: first layer (absorb)
+scinti_material: seconde layer (scinti)
+Cherenc_material: third (Cheren1)
+Cherenp_material: fourth (Cheren2)
+
+the thickness can be changed in file template_ts.cfg
+hole_diameter is the thickness of brass, 
+fiber_diameter is the thickness of scinti, cheren1, cheren2 (they have the same thickness)
+So to simulate CMS HCAL, 6cm brass + 4mm plastics. SETUP is hole_diameter = 60, fiber_diameter=4/3.
+The weird name is because previously this is used to construct a dream detector... 
+
+
+
+## about the meaning of different variables, all the variables are defined in ./include/CreateTree.hh
+--- previously energyIon refer to non-ion energy, I modified that. Anywhere with "Ion" should be ion energy now. ---
+
+
+depositedEnergyECAL_f[3], depositedEnergyECAL_r[3]; total energy deposited in different layers. 0 for absorb, 1 for scinti, 2 for Cheren1 + Cheren2
+depositedIonEnergyECAL_f[3], depositedIonEnergyECAL_r[3]; Ion energy deposited in different layers. ~
+depositedElecEnergyECAL_f[3], depositedElecEnergyECAL_r[3]; Elect energy deposited in different layers. ~
+
+So typically the command for drawing the scintillation energy:
+"tree->Draw("depositedIonEnergyECAL_f[1]+depositedIonEnergyECAL_f[2]+depositedIonEnergyECAL_r[1]+depositedIonEnergyECAL_r[2]")"
+
+
+These variables pick out the energy by particle types
+From 0 to 7 are pi-, e+, e, photon, pi+, k, n, p
+
+depositedEnergyECAL_absorb_f_particleID[8];
+depositedEnergyECAL_absorb_r_particleID[8];
+depositedIonEnergyECAL_absorb_f_particleID[8];
+depositedIonEnergyECAL_absorb_r_particleID[8];
+
+depositedEnergyECAL_scinti_f_particleID[8];
+depositedEnergyECAL_scinti_r_particleID[8];
+depositedIonEnergyECAL_scinti_f_particleID[8];
+depositedIonEnergyECAL_scinti_r_particleID[8];
+
+depositedEnergyECAL_cheren_f_particleID[8];
+depositedEnergyECAL_cheren_r_particleID[8];
+depositedIonEnergyECAL_cheren_f_particleID[8];
+depositedIonEnergyECAL_cheren_r_particleID[8];

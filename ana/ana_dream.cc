@@ -19,15 +19,16 @@ void ana_dream()
     parti[0] = "electron";
     parti[1] = "pion";
 
-///////////////////////////////////////////
-//chnage the following parameters 
-///////////////////////////////////////////
-    int select_particle = 1; //0 for e-, 1 for pi-
-    char tag[40] = "layer_brass_plastics408"; //tag
-    double ene = 60; //energy 
-///////////////////////////////////////////
-//end
-///////////////////////////////////////////
+    ///////////////////////////////////////////
+    //chnage the following parameters
+    ///////////////////////////////////////////
+    int select_particle = 1;                  //0 for e-, 1 for pi-
+    char tag[40] = "_"; //tag
+    double ene = 1;                          //energy
+
+    ///////////////////////////////////////////
+    //end
+    ///////////////////////////////////////////
 
     sprintf(outputfilename, "%s_%s_%gGeV_ana.root", tag, parti[select_particle], ene);
     sprintf(inputfilename, "%s_%s_%gGeV.root", tag, parti[select_particle], ene);
@@ -50,7 +51,7 @@ void ana_dream()
     TH1F *hscintiE_en = new TH1F("hscintiE_en", "electron scintillating fiber energy /true", nbin_norm, min_norm, max_norm);
     TH1F *hscintiE_en_ion = new TH1F("hscintiE_en_ion", "electron scintillating fiber Ionenergy /true", nbin_norm, min_norm, max_norm);
     TH1F *hcherenE_en = new TH1F("hcherenE_en", " electron cherenkov fiber energy /true", nbin_norm, min_norm, max_norm);
- 
+
     TH1F *hscintiE_ep = new TH1F("hscintiE_ep", "positron scintillating fiber energy /true", nbin_norm, min_norm, max_norm);
     TH1F *hscintiE_ep_ion = new TH1F("hscintiE_ep_ion", "positron scintillating fiber Ionenergy /true", nbin_norm, min_norm, max_norm);
     TH1F *hcherenE_ep = new TH1F("hcherenE_ep", " positron cherenkov fiber energy /true", nbin_norm, min_norm, max_norm);
@@ -70,7 +71,7 @@ void ana_dream()
     TH1F *hscintiE_pin = new TH1F("hscintiE_pin", "pion- scintillating fiber energy /true", nbin_norm, min_norm, max_norm);
     TH1F *hscintiE_pin_ion = new TH1F("hscintiE_pin_ion", "pion- scintillating fiber Ionenergy /true", nbin_norm, min_norm, max_norm);
     TH1F *hcherenE_pin = new TH1F("hcherenE_pin", " pion- cherenkov fiber energy /true", nbin_norm, min_norm, max_norm);
- 
+
     TH1F *hscintiE_pip = new TH1F("hscintiE_pip", "pion+ scintillating fiber energy /true", nbin_norm, min_norm, max_norm);
     TH1F *hscintiE_pip_ion = new TH1F("hscintiE_pip_ion", "pion+ scintillating fiber Ionenergy /true", nbin_norm, min_norm, max_norm);
     TH1F *hcherenE_pip = new TH1F("hcherenE_pip", " pion+ cherenkov fiber energy /true", nbin_norm, min_norm, max_norm);
@@ -154,38 +155,32 @@ void ana_dream()
     float depositedIonEnergyEcalDet;
     float depositedIonEnergySolenoid;
 
-    float depositedEnergyECAL_absorb_f[8];
-    float depositedEnergyECAL_absorb_r[8];
-    float depositedIonEnergyECAL_absorb_f[8];
-    float depositedIonEnergyECAL_absorb_r[8];
-    float depositedElecEnergyECAL_absorb_f[8];
-    float depositedElecEnergyECAL_absorb_r[8];
+    float depositedEnergyECAL_absorb_f_particleID[8];
+    float depositedEnergyECAL_absorb_r_particleID[8];
+    float depositedIonEnergyECAL_absorb_f_particleID[8];
+    float depositedIonEnergyECAL_absorb_r_particleID[8];
 
-    float depositedEnergyECAL_scinti_f[8];
-    float depositedEnergyECAL_scinti_r[8];
-    float depositedIonEnergyECAL_scinti_f[8];
-    float depositedIonEnergyECAL_scinti_r[8];
-    float depositedElecEnergyECAL_scinti_f[8];
-    float depositedElecEnergyECAL_scinti_r[8];
+    float depositedEnergyECAL_scinti_f_particleID[8];
+    float depositedEnergyECAL_scinti_r_particleID[8];
+    float depositedIonEnergyECAL_scinti_f_particleID[8];
+    float depositedIonEnergyECAL_scinti_r_particleID[8];
 
-    float depositedEnergyECAL_cheren_f[8];
-    float depositedEnergyECAL_cheren_r[8];
-    float depositedIonEnergyECAL_cheren_f[8];
-    float depositedIonEnergyECAL_cheren_r[8];
-    float depositedElecEnergyECAL_cheren_f[8];
-    float depositedElecEnergyECAL_cheren_r[8];
+    float depositedEnergyECAL_cheren_f_particleID[8];
+    float depositedEnergyECAL_cheren_r_particleID[8];
+    float depositedIonEnergyECAL_cheren_f_particleID[8];
+    float depositedIonEnergyECAL_cheren_r_particleID[8];
 
     int tot_phot_cer_Timing_f_total;
     int tot_phot_cer_Timing_r_total;
 
     int tot_phot_cer_ECAL_scinti_f_total;
     int tot_phot_cer_ECAL_scinti_r_total;
-    int tot_phot_cer_ECAL_scinti_f[8]; //cer in front cheren fiber
-    int tot_phot_cer_ECAL_scinti_r[8]; //cer in rear cheren fiber
+    int tot_phot_cer_ECAL_scinti_f_particleID[8]; //cer in front cheren fiber
+    int tot_phot_cer_ECAL_scinti_r_particleID[8]; //cer in rear cheren fiber
     int tot_phot_cer_ECAL_cheren_f_total;
     int tot_phot_cer_ECAL_cheren_r_total;
-    int tot_phot_cer_ECAL_cheren_f[8]; //cer in front cheren fiber
-    int tot_phot_cer_ECAL_cheren_r[8]; //cer in rear cheren fiber
+    int tot_phot_cer_ECAL_cheren_f_particleID[8]; //cer in front cheren fiber
+    int tot_phot_cer_ECAL_cheren_r_particleID[8]; //cer in rear cheren fiber
 
     int tot_phot_cer_HCAL;
 
@@ -235,37 +230,30 @@ void ana_dream()
     t1->SetBranchAddress("depositedIonEnergyEcalDet", &depositedIonEnergyEcalDet);
     t1->SetBranchAddress("depositedIonEnergySolenoid", &depositedIonEnergySolenoid);
 
-    t1->SetBranchAddress("depositedEnergyECAL_absorb_f", &depositedEnergyECAL_absorb_f);
-    t1->SetBranchAddress("depositedEnergyECAL_absorb_r", &depositedEnergyECAL_absorb_r);
-    t1->SetBranchAddress("depositedEnergyECAL_scinti_f", &depositedEnergyECAL_scinti_f);
-    t1->SetBranchAddress("depositedEnergyECAL_scinti_r", &depositedEnergyECAL_scinti_r);
-    t1->SetBranchAddress("depositedEnergyECAL_cheren_f", &depositedEnergyECAL_cheren_f);
-    t1->SetBranchAddress("depositedEnergyECAL_cheren_r", &depositedEnergyECAL_cheren_r);
+    t1->SetBranchAddress("depositedEnergyECAL_absorb_f_particleID", &depositedEnergyECAL_absorb_f_particleID);
+    t1->SetBranchAddress("depositedEnergyECAL_absorb_r_particleID", &depositedEnergyECAL_absorb_r_particleID);
+    t1->SetBranchAddress("depositedEnergyECAL_scinti_f_particleID", &depositedEnergyECAL_scinti_f_particleID);
+    t1->SetBranchAddress("depositedEnergyECAL_scinti_r_particleID", &depositedEnergyECAL_scinti_r_particleID);
+    t1->SetBranchAddress("depositedEnergyECAL_cheren_f_particleID", &depositedEnergyECAL_cheren_f_particleID);
+    t1->SetBranchAddress("depositedEnergyECAL_cheren_r_particleID", &depositedEnergyECAL_cheren_r_particleID);
 
-    t1->SetBranchAddress("depositedIonEnergyECAL_absorb_f", &depositedIonEnergyECAL_absorb_f);
-    t1->SetBranchAddress("depositedIonEnergyECAL_absorb_r", &depositedIonEnergyECAL_absorb_r);
-    t1->SetBranchAddress("depositedIonEnergyECAL_scinti_f", &depositedIonEnergyECAL_scinti_f);
-    t1->SetBranchAddress("depositedIonEnergyECAL_scinti_r", &depositedIonEnergyECAL_scinti_r);
-    t1->SetBranchAddress("depositedIonEnergyECAL_cheren_f", &depositedIonEnergyECAL_cheren_f);
-    t1->SetBranchAddress("depositedIonEnergyECAL_cheren_r", &depositedIonEnergyECAL_cheren_r);
-
-    t1->SetBranchAddress("depositedElecEnergyECAL_absorb_f", &depositedElecEnergyECAL_absorb_f);
-    t1->SetBranchAddress("depositedElecEnergyECAL_absorb_r", &depositedElecEnergyECAL_absorb_r);
-    t1->SetBranchAddress("depositedElecEnergyECAL_scinti_f", &depositedElecEnergyECAL_scinti_f);
-    t1->SetBranchAddress("depositedElecEnergyECAL_scinti_r", &depositedElecEnergyECAL_scinti_r);
-    t1->SetBranchAddress("depositedElecEnergyECAL_cheren_f", &depositedElecEnergyECAL_cheren_f);
-    t1->SetBranchAddress("depositedElecEnergyECAL_cheren_r", &depositedElecEnergyECAL_cheren_r);
+    t1->SetBranchAddress("depositedIonEnergyECAL_absorb_f_particleID", &depositedIonEnergyECAL_absorb_f_particleID);
+    t1->SetBranchAddress("depositedIonEnergyECAL_absorb_r_particleID", &depositedIonEnergyECAL_absorb_r_particleID);
+    t1->SetBranchAddress("depositedIonEnergyECAL_scinti_f_particleID", &depositedIonEnergyECAL_scinti_f_particleID);
+    t1->SetBranchAddress("depositedIonEnergyECAL_scinti_r_particleID", &depositedIonEnergyECAL_scinti_r_particleID);
+    t1->SetBranchAddress("depositedIonEnergyECAL_cheren_f_particleID", &depositedIonEnergyECAL_cheren_f_particleID);
+    t1->SetBranchAddress("depositedIonEnergyECAL_cheren_r_particleID", &depositedIonEnergyECAL_cheren_r_particleID);
 
     t1->SetBranchAddress("tot_phot_cer_Timing_f_total", &tot_phot_cer_Timing_f_total);
     t1->SetBranchAddress("tot_phot_cer_Timing_r_total", &tot_phot_cer_Timing_r_total);
     t1->SetBranchAddress("tot_phot_cer_ECAL_scinti_f_total", &tot_phot_cer_ECAL_scinti_f_total);
     t1->SetBranchAddress("tot_phot_cer_ECAL_scinti_r_total", &tot_phot_cer_ECAL_scinti_r_total);
-    t1->SetBranchAddress("tot_phot_cer_ECAL_scinti_f", &tot_phot_cer_ECAL_scinti_f);
-    t1->SetBranchAddress("tot_phot_cer_ECAL_scinti_r", &tot_phot_cer_ECAL_scinti_r);
     t1->SetBranchAddress("tot_phot_cer_ECAL_cheren_f_total", &tot_phot_cer_ECAL_cheren_f_total);
     t1->SetBranchAddress("tot_phot_cer_ECAL_cheren_r_total", &tot_phot_cer_ECAL_cheren_r_total);
-    t1->SetBranchAddress("tot_phot_cer_ECAL_cheren_f", &tot_phot_cer_ECAL_cheren_f);
-    t1->SetBranchAddress("tot_phot_cer_ECAL_cheren_r", &tot_phot_cer_ECAL_cheren_r);
+    t1->SetBranchAddress("tot_phot_cer_ECAL_scinti_f_particleID", &tot_phot_cer_ECAL_scinti_f_particleID);
+    t1->SetBranchAddress("tot_phot_cer_ECAL_scinti_r_particleID", &tot_phot_cer_ECAL_scinti_r_particleID);
+    t1->SetBranchAddress("tot_phot_cer_ECAL_cheren_f_particleID", &tot_phot_cer_ECAL_cheren_f_particleID);
+    t1->SetBranchAddress("tot_phot_cer_ECAL_cheren_r_particleID", &tot_phot_cer_ECAL_cheren_r_particleID);
     t1->SetBranchAddress("tot_phot_cer_HCAL", &tot_phot_cer_HCAL);
 
     Int_t nentries = (Int_t)t1->GetEntries();
@@ -296,7 +284,7 @@ void ana_dream()
              hcerHCAL->Fill(tot_phot_cer_HCAL);
              */
 
-        float estE = (depositedEnergyECAL_f[1] - depositedIonEnergyECAL_f[1]) + (depositedEnergyECAL_r[1] - depositedIonEnergyECAL_r[1]); //ion energy in scinti
+        float estE = depositedIonEnergyECAL_f[1] + depositedIonEnergyECAL_r[1]; //ion energy in scinti
 
         hTotalE->Fill(depositedEnergyTotal / trueE);
         float yyy = depositedEnergyECAL_f[0] + depositedEnergyECAL_r[0] + depositedEnergyECAL_f[1] + depositedEnergyECAL_r[1] + depositedEnergyECAL_f[2] + depositedEnergyECAL_r[2];
@@ -311,55 +299,55 @@ void ana_dream()
         /*********** add the corresponding value to the hist *********************/
         //pi-, e+, e-, gamma, pi+, k+, n, p
 
-        hscintiE_en->Fill((depositedEnergyECAL_scinti_f[2] + depositedEnergyECAL_scinti_r[2]) / trueE);
-        hscintiE_en_ion->Fill((depositedEnergyECAL_scinti_f[2] - depositedIonEnergyECAL_scinti_f[2] + depositedEnergyECAL_scinti_r[2] - depositedIonEnergyECAL_scinti_r[2]) / trueE);
-        hcherenE_en->Fill((depositedEnergyECAL_cheren_f[2] + depositedEnergyECAL_cheren_r[2]) / trueE);
+        hscintiE_en->Fill((depositedEnergyECAL_scinti_f_particleID[2] + depositedEnergyECAL_scinti_r_particleID[2]) / trueE);
+        hscintiE_en_ion->Fill((depositedIonEnergyECAL_scinti_f_particleID[2] + depositedIonEnergyECAL_scinti_r_particleID[2]) / trueE);
+        hcherenE_en->Fill((depositedEnergyECAL_cheren_f_particleID[2] + depositedEnergyECAL_cheren_r_particleID[2]) / trueE);
 
-        hscintiE_ep->Fill((depositedEnergyECAL_scinti_f[1] + depositedEnergyECAL_scinti_r[1]) / trueE);
-        hscintiE_ep_ion->Fill((depositedEnergyECAL_scinti_f[1] - depositedIonEnergyECAL_scinti_f[1] + depositedEnergyECAL_scinti_r[1] - depositedIonEnergyECAL_scinti_r[1]) / trueE);
-        hcherenE_ep->Fill((depositedEnergyECAL_cheren_f[1] + depositedEnergyECAL_cheren_r[1]) / trueE);
+        hscintiE_ep->Fill((depositedEnergyECAL_scinti_f_particleID[1] + depositedEnergyECAL_scinti_r_particleID[1]) / trueE);
+        hscintiE_ep_ion->Fill((depositedIonEnergyECAL_scinti_f_particleID[1] + depositedIonEnergyECAL_scinti_r_particleID[1]) / trueE);
+        hcherenE_ep->Fill((depositedEnergyECAL_cheren_f_particleID[1] + depositedEnergyECAL_cheren_r_particleID[1]) / trueE);
 
-        hscintiE_gamma->Fill((depositedEnergyECAL_scinti_f[3] + depositedEnergyECAL_scinti_r[3]) / trueE);
-        hscintiE_gamma_ion->Fill((depositedEnergyECAL_scinti_f[3] - depositedIonEnergyECAL_scinti_f[3] + depositedEnergyECAL_scinti_r[3] - depositedIonEnergyECAL_scinti_r[3]) / trueE);
-        hcherenE_gamma->Fill((depositedEnergyECAL_cheren_f[3] + depositedEnergyECAL_cheren_r[3]) / trueE);
+        hscintiE_gamma->Fill((depositedEnergyECAL_scinti_f_particleID[3] + depositedEnergyECAL_scinti_r_particleID[3]) / trueE);
+        hscintiE_gamma_ion->Fill((depositedIonEnergyECAL_scinti_f_particleID[3] + depositedIonEnergyECAL_scinti_r_particleID[3]) / trueE);
+        hcherenE_gamma->Fill((depositedEnergyECAL_cheren_f_particleID[3] + depositedEnergyECAL_cheren_r_particleID[3]) / trueE);
 
-        hscintiE_n->Fill((depositedEnergyECAL_scinti_f[6] + depositedEnergyECAL_scinti_r[6]) / trueE);
-        hscintiE_n_ion->Fill((depositedEnergyECAL_scinti_f[6] - depositedIonEnergyECAL_scinti_f[6] + depositedEnergyECAL_scinti_r[6] - depositedIonEnergyECAL_scinti_r[6]) / trueE);
-        hcherenE_n->Fill((depositedEnergyECAL_cheren_f[6] + depositedEnergyECAL_cheren_r[6]) / trueE);
+        hscintiE_n->Fill((depositedEnergyECAL_scinti_f_particleID[6] + depositedEnergyECAL_scinti_r_particleID[6]) / trueE);
+        hscintiE_n_ion->Fill((depositedIonEnergyECAL_scinti_f_particleID[6] + depositedIonEnergyECAL_scinti_r_particleID[6]) / trueE);
+        hcherenE_n->Fill((depositedEnergyECAL_cheren_f_particleID[6] + depositedEnergyECAL_cheren_r_particleID[6]) / trueE);
 
-        hscintiE_p->Fill((depositedEnergyECAL_scinti_f[7] + depositedEnergyECAL_scinti_r[7]) / trueE);
-        hscintiE_p_ion->Fill((depositedEnergyECAL_scinti_f[7] - depositedIonEnergyECAL_scinti_f[7] + depositedEnergyECAL_scinti_r[7] - depositedIonEnergyECAL_scinti_r[7]) / trueE);
-        hcherenE_p->Fill((depositedEnergyECAL_cheren_f[7] + depositedEnergyECAL_cheren_r[7]) / trueE);
+        hscintiE_p->Fill((depositedEnergyECAL_scinti_f_particleID[7] + depositedEnergyECAL_scinti_r_particleID[7]) / trueE);
+        hscintiE_p_ion->Fill((depositedIonEnergyECAL_scinti_f_particleID[7] + depositedIonEnergyECAL_scinti_r_particleID[7]) / trueE);
+        hcherenE_p->Fill((depositedEnergyECAL_cheren_f_particleID[7] + depositedEnergyECAL_cheren_r_particleID[7]) / trueE);
 
-        hscintiE_pin->Fill((depositedEnergyECAL_scinti_f[0] + depositedEnergyECAL_scinti_r[0]) / trueE);
-        hscintiE_pin_ion->Fill((depositedEnergyECAL_scinti_f[0] - depositedIonEnergyECAL_scinti_f[0] + depositedEnergyECAL_scinti_r[0] - depositedIonEnergyECAL_scinti_r[0]) / trueE);
-        hcherenE_pin->Fill((depositedEnergyECAL_cheren_f[0] + depositedEnergyECAL_cheren_r[0]) / trueE);
+        hscintiE_pin->Fill((depositedEnergyECAL_scinti_f_particleID[0] + depositedEnergyECAL_scinti_r_particleID[0]) / trueE);
+        hscintiE_pin_ion->Fill((depositedIonEnergyECAL_scinti_f_particleID[0] + depositedIonEnergyECAL_scinti_r_particleID[0]) / trueE);
+        hcherenE_pin->Fill((depositedEnergyECAL_cheren_f_particleID[0] + depositedEnergyECAL_cheren_r_particleID[0]) / trueE);
 
-        hscintiE_pip->Fill((depositedEnergyECAL_scinti_f[4] + depositedEnergyECAL_scinti_r[4]) / trueE);
-        hscintiE_pip_ion->Fill((depositedEnergyECAL_scinti_f[4] - depositedIonEnergyECAL_scinti_f[4] + depositedEnergyECAL_scinti_r[4] - depositedIonEnergyECAL_scinti_r[4]) / trueE);
-        hcherenE_pip->Fill((depositedEnergyECAL_cheren_f[4] + depositedEnergyECAL_cheren_r[4]) / trueE);
+        hscintiE_pip->Fill((depositedEnergyECAL_scinti_f_particleID[4] + depositedEnergyECAL_scinti_r_particleID[4]) / trueE);
+        hscintiE_pip_ion->Fill((depositedIonEnergyECAL_scinti_f_particleID[4] + depositedIonEnergyECAL_scinti_r_particleID[4]) / trueE);
+        hcherenE_pip->Fill((depositedEnergyECAL_cheren_f_particleID[4] + depositedEnergyECAL_cheren_r_particleID[4]) / trueE);
         if (Count_CherenPhoton_in_scinti)
         {
             hcherenN->Fill(tot_phot_cer_ECAL_scinti_f_total + tot_phot_cer_ECAL_scinti_r_total + tot_phot_cer_ECAL_cheren_f_total + tot_phot_cer_ECAL_cheren_r_total);
-            hcherenN_en->Fill(tot_phot_cer_ECAL_scinti_f[2] + tot_phot_cer_ECAL_scinti_r[2] + tot_phot_cer_ECAL_cheren_f[2] + tot_phot_cer_ECAL_cheren_r[2]);
-            hcherenN_ep->Fill(tot_phot_cer_ECAL_scinti_f[1] + tot_phot_cer_ECAL_scinti_r[1] + tot_phot_cer_ECAL_cheren_f[1] + tot_phot_cer_ECAL_cheren_r[1]);
-            hcherenN_gamma->Fill(tot_phot_cer_ECAL_scinti_f[3] + tot_phot_cer_ECAL_scinti_r[3] + tot_phot_cer_ECAL_cheren_f[3] + tot_phot_cer_ECAL_cheren_r[3]);
-            hcherenN_n->Fill(tot_phot_cer_ECAL_scinti_f[6] + tot_phot_cer_ECAL_scinti_r[6] + tot_phot_cer_ECAL_cheren_f[6] + tot_phot_cer_ECAL_cheren_r[6]);
-            hcherenN_p->Fill(tot_phot_cer_ECAL_scinti_f[7] + tot_phot_cer_ECAL_scinti_r[7] + tot_phot_cer_ECAL_cheren_f[7] + tot_phot_cer_ECAL_cheren_r[7]);
-            hcherenN_pin->Fill(tot_phot_cer_ECAL_scinti_f[0] + tot_phot_cer_ECAL_scinti_r[0] + tot_phot_cer_ECAL_cheren_f[0] + tot_phot_cer_ECAL_cheren_r[0]);
-            hcherenN_pip->Fill(tot_phot_cer_ECAL_scinti_f[4] + tot_phot_cer_ECAL_scinti_r[4] + tot_phot_cer_ECAL_cheren_f[4] + tot_phot_cer_ECAL_cheren_r[4]);
+            hcherenN_en->Fill(tot_phot_cer_ECAL_scinti_f_particleID[2] + tot_phot_cer_ECAL_scinti_r_particleID[2] + tot_phot_cer_ECAL_cheren_f_particleID[2] + tot_phot_cer_ECAL_cheren_r_particleID[2]);
+            hcherenN_ep->Fill(tot_phot_cer_ECAL_scinti_f_particleID[1] + tot_phot_cer_ECAL_scinti_r_particleID[1] + tot_phot_cer_ECAL_cheren_f_particleID[1] + tot_phot_cer_ECAL_cheren_r_particleID[1]);
+            hcherenN_gamma->Fill(tot_phot_cer_ECAL_scinti_f_particleID[3] + tot_phot_cer_ECAL_scinti_r_particleID[3] + tot_phot_cer_ECAL_cheren_f_particleID[3] + tot_phot_cer_ECAL_cheren_r_particleID[3]);
+            hcherenN_n->Fill(tot_phot_cer_ECAL_scinti_f_particleID[6] + tot_phot_cer_ECAL_scinti_r_particleID[6] + tot_phot_cer_ECAL_cheren_f_particleID[6] + tot_phot_cer_ECAL_cheren_r_particleID[6]);
+            hcherenN_p->Fill(tot_phot_cer_ECAL_scinti_f_particleID[7] + tot_phot_cer_ECAL_scinti_r_particleID[7] + tot_phot_cer_ECAL_cheren_f_particleID[7] + tot_phot_cer_ECAL_cheren_r_particleID[7]);
+            hcherenN_pin->Fill(tot_phot_cer_ECAL_scinti_f_particleID[0] + tot_phot_cer_ECAL_scinti_r_particleID[0] + tot_phot_cer_ECAL_cheren_f_particleID[0] + tot_phot_cer_ECAL_cheren_r_particleID[0]);
+            hcherenN_pip->Fill(tot_phot_cer_ECAL_scinti_f_particleID[4] + tot_phot_cer_ECAL_scinti_r_particleID[4] + tot_phot_cer_ECAL_cheren_f_particleID[4] + tot_phot_cer_ECAL_cheren_r_particleID[4]);
         }
         else
         {
 
             hcherenN->Fill(tot_phot_cer_ECAL_cheren_f_total + tot_phot_cer_ECAL_cheren_r_total);
-            hcherenN_en->Fill(tot_phot_cer_ECAL_cheren_f[2] + tot_phot_cer_ECAL_cheren_r[2]);
-            hcherenN_ep->Fill(tot_phot_cer_ECAL_cheren_f[1] + tot_phot_cer_ECAL_cheren_r[1]);
-            hcherenN_gamma->Fill(tot_phot_cer_ECAL_cheren_f[3] + tot_phot_cer_ECAL_cheren_r[3]);
-            hcherenN_n->Fill(tot_phot_cer_ECAL_cheren_f[6] + tot_phot_cer_ECAL_cheren_r[6]);
-            hcherenN_p->Fill(tot_phot_cer_ECAL_cheren_f[7] + tot_phot_cer_ECAL_cheren_r[7]);
-            hcherenN_pin->Fill(tot_phot_cer_ECAL_cheren_f[0] + tot_phot_cer_ECAL_cheren_r[0]);
-            hcherenN_pip->Fill(tot_phot_cer_ECAL_cheren_f[4] + tot_phot_cer_ECAL_cheren_r[4]);
+            hcherenN_en->Fill(tot_phot_cer_ECAL_cheren_f_particleID[2] + tot_phot_cer_ECAL_cheren_r_particleID[2]);
+            hcherenN_ep->Fill(tot_phot_cer_ECAL_cheren_f_particleID[1] + tot_phot_cer_ECAL_cheren_r_particleID[1]);
+            hcherenN_gamma->Fill(tot_phot_cer_ECAL_cheren_f_particleID[3] + tot_phot_cer_ECAL_cheren_r_particleID[3]);
+            hcherenN_n->Fill(tot_phot_cer_ECAL_cheren_f_particleID[6] + tot_phot_cer_ECAL_cheren_r_particleID[6]);
+            hcherenN_p->Fill(tot_phot_cer_ECAL_cheren_f_particleID[7] + tot_phot_cer_ECAL_cheren_r_particleID[7]);
+            hcherenN_pin->Fill(tot_phot_cer_ECAL_cheren_f_particleID[0] + tot_phot_cer_ECAL_cheren_r_particleID[0]);
+            hcherenN_pip->Fill(tot_phot_cer_ECAL_cheren_f_particleID[4] + tot_phot_cer_ECAL_cheren_r_particleID[4]);
         }
         /**********************************************/
     }

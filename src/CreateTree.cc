@@ -68,12 +68,12 @@ CreateTree::CreateTree(TString name)
   this->GetTree()->Branch("depositedEnergyEcalDet", &this->depositedEnergyEcalDet, "depositedEnergyEcalDet/F");
   this->GetTree()->Branch("depositedEnergySolenoid", &this->depositedEnergySolenoid, "depositedEnergySolenoid/F");
 
-  this->GetTree()->Branch("depositedEnergyECAL_absorb_f", &this->depositedEnergyECAL_absorb_f, "depositedEnergyECAL_absorb_f[8]/F");
-  this->GetTree()->Branch("depositedEnergyECAL_absorb_r", &this->depositedEnergyECAL_absorb_r, "depositedEnergyECAL_absorb_r[8]/F");
-  this->GetTree()->Branch("depositedEnergyECAL_scinti_f", &this->depositedEnergyECAL_scinti_f, "depositedEnergyECAL_scinti_f[8]/F");
-  this->GetTree()->Branch("depositedEnergyECAL_scinti_r", &this->depositedEnergyECAL_scinti_r, "depositedEnergyECAL_scinti_r[8]/F");
-  this->GetTree()->Branch("depositedEnergyECAL_cheren_f", &this->depositedEnergyECAL_cheren_f, "depositedEnergyECAL_cheren_f[8]/F");
-  this->GetTree()->Branch("depositedEnergyECAL_cheren_r", &this->depositedEnergyECAL_cheren_r, "depositedEnergyECAL_cheren_r[8]/F");
+  this->GetTree()->Branch("depositedEnergyECAL_absorb_f_particleID", &this->depositedEnergyECAL_absorb_f_particleID, "depositedEnergyECAL_absorb_f_particleID[8]/F");
+  this->GetTree()->Branch("depositedEnergyECAL_absorb_r_particleID", &this->depositedEnergyECAL_absorb_r_particleID, "depositedEnergyECAL_absorb_r_particleID[8]/F");
+  this->GetTree()->Branch("depositedEnergyECAL_scinti_f_particleID", &this->depositedEnergyECAL_scinti_f_particleID, "depositedEnergyECAL_scinti_f_particleID[8]/F");
+  this->GetTree()->Branch("depositedEnergyECAL_scinti_r_particleID", &this->depositedEnergyECAL_scinti_r_particleID, "depositedEnergyECAL_scinti_r_particleID[8]/F");
+  this->GetTree()->Branch("depositedEnergyECAL_cheren_f_particleID", &this->depositedEnergyECAL_cheren_f_particleID, "depositedEnergyECAL_cheren_f_particleID[8]/F");
+  this->GetTree()->Branch("depositedEnergyECAL_cheren_r_particleID", &this->depositedEnergyECAL_cheren_r_particleID, "depositedEnergyECAL_cheren_r_particleID[8]/F");
 
   this->GetTree()->Branch("depositedIonEnergyTotal", &this->depositedIonEnergyTotal, "depositedIonEnergyTotal/F");
   this->GetTree()->Branch("depositedIonEnergyTiming_f", &this->depositedIonEnergyTiming_f, "depositedIonEnergyTiming_f/F");
@@ -89,12 +89,12 @@ CreateTree::CreateTree(TString name)
   this->GetTree()->Branch("depositedIonEnergyEcalDet", &this->depositedIonEnergyEcalDet, "depositedIonEnergyEcalDet/F");
   this->GetTree()->Branch("depositedIonEnergySolenoid", &this->depositedIonEnergySolenoid, "depositedIonEnergySolenoid/F");
 
-  this->GetTree()->Branch("depositedIonEnergyECAL_absorb_f", &this->depositedIonEnergyECAL_absorb_f, "depositedIonEnergyECAL_absorb_f[8]/F");
-  this->GetTree()->Branch("depositedIonEnergyECAL_absorb_r", &this->depositedIonEnergyECAL_absorb_r, "depositedIonEnergyECAL_absorb_r[8]/F");
-  this->GetTree()->Branch("depositedIonEnergyECAL_scinti_f", &this->depositedIonEnergyECAL_scinti_f, "depositedIonEnergyECAL_scinti_f[8]/F");
-  this->GetTree()->Branch("depositedIonEnergyECAL_scinti_r", &this->depositedIonEnergyECAL_scinti_r, "depositedIonEnergyECAL_scinti_r[8]/F");
-  this->GetTree()->Branch("depositedIonEnergyECAL_cheren_f", &this->depositedIonEnergyECAL_cheren_f, "depositedIonEnergyECAL_cheren_f[8]/F");
-  this->GetTree()->Branch("depositedIonEnergyECAL_cheren_r", &this->depositedIonEnergyECAL_cheren_r, "depositedIonEnergyECAL_cheren_r[8]/F");
+  this->GetTree()->Branch("depositedIonEnergyECAL_absorb_f_particleID", &this->depositedIonEnergyECAL_absorb_f_particleID, "depositedIonEnergyECAL_absorb_f_particleID[8]/F");
+  this->GetTree()->Branch("depositedIonEnergyECAL_absorb_r_particleID", &this->depositedIonEnergyECAL_absorb_r_particleID, "depositedIonEnergyECAL_absorb_r_particleID[8]/F");
+  this->GetTree()->Branch("depositedIonEnergyECAL_scinti_f_particleID", &this->depositedIonEnergyECAL_scinti_f_particleID, "depositedIonEnergyECAL_scinti_f_particleID[8]/F");
+  this->GetTree()->Branch("depositedIonEnergyECAL_scinti_r_particleID", &this->depositedIonEnergyECAL_scinti_r_particleID, "depositedIonEnergyECAL_scinti_r_particleID[8]/F");
+  this->GetTree()->Branch("depositedIonEnergyECAL_cheren_f_particleID", &this->depositedIonEnergyECAL_cheren_f_particleID, "depositedIonEnergyECAL_cheren_f_particleID[8]/F");
+  this->GetTree()->Branch("depositedIonEnergyECAL_cheren_r_particleID", &this->depositedIonEnergyECAL_cheren_r_particleID, "depositedIonEnergyECAL_cheren_r_particleID[8]/F");
 
   this->GetTree()->Branch("depositedElecEnergyTotal", &this->depositedElecEnergyTotal, "depositedElecEnergyTotal/F");
   this->GetTree()->Branch("depositedElecEnergyTiming_f", &this->depositedElecEnergyTiming_f, "depositedElecEnergyTiming_f/F");
@@ -109,13 +109,6 @@ CreateTree::CreateTree(TString name)
   this->GetTree()->Branch("depositedElecEnergyEcalGap", &this->depositedElecEnergyEcalGap, "depositedElecEnergyEcalGap/F");
   this->GetTree()->Branch("depositedElecEnergyEcalDet", &this->depositedElecEnergyEcalDet, "depositedElecEnergyEcalDet/F");
   this->GetTree()->Branch("depositedElecEnergySolenoid", &this->depositedElecEnergySolenoid, "depositedElecEnergySolenoid/F");
-
-  this->GetTree()->Branch("depositedElecEnergyECAL_absorb_f", &this->depositedElecEnergyECAL_absorb_f, "depositedElecEnergyECAL_absorb_f[8]/F");
-  this->GetTree()->Branch("depositedElecEnergyECAL_absorb_r", &this->depositedElecEnergyECAL_absorb_r, "depositedElecEnergyECAL_absorb_r[8]/F");
-  this->GetTree()->Branch("depositedElecEnergyECAL_scinti_f", &this->depositedElecEnergyECAL_scinti_f, "depositedElecEnergyECAL_scinti_f[8]/F");
-  this->GetTree()->Branch("depositedElecEnergyECAL_scinti_r", &this->depositedElecEnergyECAL_scinti_r, "depositedElecEnergyECAL_scinti_r[8]/F");
-  this->GetTree()->Branch("depositedElecEnergyECAL_cheren_f", &this->depositedElecEnergyECAL_cheren_f, "depositedElecEnergyECAL_cheren_f[8]/F");
-  this->GetTree()->Branch("depositedElecEnergyECAL_cheren_r", &this->depositedElecEnergyECAL_cheren_r, "depositedElecEnergyECAL_cheren_r[8]/F");
 
   //single channels
   this->GetTree()->Branch("Edep_Tracker_layer", &this->Edep_Tracker_layer, "Edep_Tracker_layer[6]/F");
@@ -149,12 +142,12 @@ CreateTree::CreateTree(TString name)
   this->GetTree()->Branch("tot_phot_cer_Timing_r_total", &this->tot_phot_cer_Timing_r_total, "tot_phot_cer_Timing_r_total/I");
   this->GetTree()->Branch("tot_phot_cer_ECAL_scinti_f_total", &this->tot_phot_cer_ECAL_scinti_f_total, "tot_phot_cer_ECAL_scinti_f_total/I");
   this->GetTree()->Branch("tot_phot_cer_ECAL_scinti_r_total", &this->tot_phot_cer_ECAL_scinti_r_total, "tot_phot_cer_ECAL_scinti_r_total/I");
-  this->GetTree()->Branch("tot_phot_cer_ECAL_scinti_f", &this->tot_phot_cer_ECAL_scinti_f, "tot_phot_cer_ECAL_scinti_f[8]/I");
-  this->GetTree()->Branch("tot_phot_cer_ECAL_scinti_r", &this->tot_phot_cer_ECAL_scinti_r, "tot_phot_cer_ECAL_scinti_r[8]/I");
+  this->GetTree()->Branch("tot_phot_cer_ECAL_scinti_f_particleID", &this->tot_phot_cer_ECAL_scinti_f_particleID, "tot_phot_cer_ECAL_scinti_f_particleID[8]/I");
+  this->GetTree()->Branch("tot_phot_cer_ECAL_scinti_r_particleID", &this->tot_phot_cer_ECAL_scinti_r_particleID, "tot_phot_cer_ECAL_scinti_r_particleID[8]/I");
   this->GetTree()->Branch("tot_phot_cer_ECAL_cheren_f_total", &this->tot_phot_cer_ECAL_cheren_f_total, "tot_phot_cer_ECAL_cheren_f_total/I");
   this->GetTree()->Branch("tot_phot_cer_ECAL_cheren_r_total", &this->tot_phot_cer_ECAL_cheren_r_total, "tot_phot_cer_ECAL_cheren_r_total/I");
-  this->GetTree()->Branch("tot_phot_cer_ECAL_cheren_f", &this->tot_phot_cer_ECAL_cheren_f, "tot_phot_cer_ECAL_cheren_f[8]/I");
-  this->GetTree()->Branch("tot_phot_cer_ECAL_cheren_r", &this->tot_phot_cer_ECAL_cheren_r, "tot_phot_cer_ECAL_cheren_r[8]/I");
+  this->GetTree()->Branch("tot_phot_cer_ECAL_cheren_f_particleID", &this->tot_phot_cer_ECAL_cheren_f_particleID, "tot_phot_cer_ECAL_cheren_f_particleID[8]/I");
+  this->GetTree()->Branch("tot_phot_cer_ECAL_cheren_r_particleID", &this->tot_phot_cer_ECAL_cheren_r_particleID, "tot_phot_cer_ECAL_cheren_r_particleID[8]/I");
 
   this->GetTree()->Branch("tot_phot_cer_HCAL", &this->tot_phot_cer_HCAL, "tot_phot_cer_HCAL/I");
 
@@ -350,30 +343,24 @@ void CreateTree::Clear()
 
   for (int iparticle = 0; iparticle < 8; iparticle++)
   {
-    depositedEnergyECAL_absorb_f[iparticle] = 0.;
-    depositedEnergyECAL_absorb_r[iparticle] = 0.;
-    depositedEnergyECAL_scinti_f[iparticle] = 0.;
-    depositedEnergyECAL_scinti_r[iparticle] = 0.;
-    depositedEnergyECAL_cheren_f[iparticle] = 0.;
-    depositedEnergyECAL_cheren_r[iparticle] = 0.;
+    depositedEnergyECAL_absorb_f_particleID[iparticle] = 0.;
+    depositedEnergyECAL_absorb_r_particleID[iparticle] = 0.;
+    depositedEnergyECAL_scinti_f_particleID[iparticle] = 0.;
+    depositedEnergyECAL_scinti_r_particleID[iparticle] = 0.;
+    depositedEnergyECAL_cheren_f_particleID[iparticle] = 0.;
+    depositedEnergyECAL_cheren_r_particleID[iparticle] = 0.;
 
-    depositedIonEnergyECAL_absorb_f[iparticle] = 0.;
-    depositedIonEnergyECAL_absorb_r[iparticle] = 0.;
-    depositedIonEnergyECAL_scinti_f[iparticle] = 0.;
-    depositedIonEnergyECAL_scinti_r[iparticle] = 0.;
-    depositedIonEnergyECAL_cheren_f[iparticle] = 0.;
-    depositedIonEnergyECAL_cheren_r[iparticle] = 0.;
+    depositedIonEnergyECAL_absorb_f_particleID[iparticle] = 0.;
+    depositedIonEnergyECAL_absorb_r_particleID[iparticle] = 0.;
+    depositedIonEnergyECAL_scinti_f_particleID[iparticle] = 0.;
+    depositedIonEnergyECAL_scinti_r_particleID[iparticle] = 0.;
+    depositedIonEnergyECAL_cheren_f_particleID[iparticle] = 0.;
+    depositedIonEnergyECAL_cheren_r_particleID[iparticle] = 0.;
 
-    depositedElecEnergyECAL_absorb_f[iparticle] = 0.;
-    depositedElecEnergyECAL_absorb_r[iparticle] = 0.;
-    depositedElecEnergyECAL_scinti_f[iparticle] = 0.;
-    depositedElecEnergyECAL_scinti_r[iparticle] = 0.;
-    depositedElecEnergyECAL_cheren_f[iparticle] = 0.;
-    depositedElecEnergyECAL_cheren_r[iparticle] = 0.;
-    tot_phot_cer_ECAL_scinti_f[iparticle] = 0.;
-    tot_phot_cer_ECAL_scinti_r[iparticle] = 0.;
-    tot_phot_cer_ECAL_cheren_f[iparticle] = 0.;
-    tot_phot_cer_ECAL_cheren_r[iparticle] = 0.;
+    tot_phot_cer_ECAL_scinti_f_particleID[iparticle] = 0.;
+    tot_phot_cer_ECAL_scinti_r_particleID[iparticle] = 0.;
+    tot_phot_cer_ECAL_cheren_f_particleID[iparticle] = 0.;
+    tot_phot_cer_ECAL_cheren_r_particleID[iparticle] = 0.;
   }
 
   for (int iLayer = 0; iLayer < 6; iLayer++)
