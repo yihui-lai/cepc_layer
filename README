@@ -1,51 +1,63 @@
+Step 1: source g4env.sh
+Step 2: cmake -DGeant4_DIR=/cvmfs/geant4.cern.ch/geant4/10.5/x86_64-slc6-gcc63-opt/lib64/GEANT4-10.5.0
+Step 3: cmake --build .
+Step 4: ./CEPC_CaloTiming -c template.cfg -u Xm  (-m run.mac if batch mode) -o filename
 
-./CEPC_CaloTiming -c template.cfg -u Xm  (-m run.mac if batch mode) -o filename
 
-cmake -DGeant4_DIR=/cvmfs/geant4.cern.ch/geant4/10.5/x86_64-slc6-gcc63-opt/lib64/GEANT4-10.5.0
-cmake --build .
-
-##Feel free to change the parameters in template/generate_temp.sh, which helps to generate condor files.
-
-##There are some files in ./ana directory used to analyze the simulation data.
-ana_dream.cc is used to create a new root file which containing energy distributions and could be further used by ana_component_dream.C
-get_reso_vs_Ein_dream.cc is used to plot "something vs E_True"
-
-##The detector looks like this 
+Note 1: Geometry 
+The detector looks like this 
 
                 front                                                   rear
-| brass | scinti | Cheren1 | Cheren2 |                  | brass | scinti | Cheren1 | Cheren2 |
-|       |        |         |         |                  |       |        |         |         |
-|       |        |         |         |  ... repeat(100) |       |        |         |         |  ... repeat(100)
-|       |        |         |         |                  |       |        |         |         |
+| absorb | scinti | Cheren1 | Cheren2 |                  | absorb | scinti | Cheren1 | Cheren2 |
+|        |        |         |         |                  |        |        |         |         |
+|        |        |         |         |  ... repeat(100) |        |        |         |         |  ... repeat(100)
+|        |        |         |         |                  |        |        |         |         |
 
-Their material can be changed in file template_ts.cfg
+
+Note 2: Configuration
+./template.cfg is the configuration file. You can change the size, material of detector by changing the corresponding parameters.
+
+Some parameters like:
 ecal_material: first layer (absorb)
 scinti_material: seconde layer (scinti)
 Cherenc_material: third (Cheren1)
 Cherenp_material: fourth (Cheren2)
+hole_diameter: thickness of first layer
+fiber_diameter: thickness of scinti, cheren1, cheren2 (they have the same thickness)
 
-the thickness can be changed in file template_ts.cfg
-hole_diameter is the thickness of brass, 
-fiber_diameter is the thickness of scinti, cheren1, cheren2 (they have the same thickness)
 So to simulate CMS HCAL, 6cm brass + 4mm plastics. SETUP is hole_diameter = 60, fiber_diameter=4/3.
 The weird name is because previously this is used to construct a dream detector... 
 
 
+Note 3: template file
+In directory ./template, there are some template files used to generate condor files. 
+You need to change parameters in ./template/generate_temp.sh to generate your own condor files.
+In the file, number is how many events in each run, energy is the energy of pion- and e- with unit GeV, tag is tag...
+Use the command source generate_temp.sh, you'll get the file submit.sh, then source submit.sh to submit all the jobs.
 
-## about the meaning of different variables, all the variables are defined in ./include/CreateTree.hh
+
+Note 4: analyze files 
+There are some files in ./ana directory, used to analyze the simulation data.
+ana_dream.cc is used to create a new root file which containing energy distributions and could be further used by ana_component_dream.C
+get_reso_vs_Ein_dream.cc is used to plot "something vs E_True". In the file, parameter like sampling_frac_e_scinti, draw_option and energy are needed to be changed accordingly.
+
+
+Note 5: data structure 
+All the variables saved in root file are defined in ./include/CreateTree.hh
 --- previously energyIon refer to non-ion energy, I modified that. Anywhere with "Ion" should be ion energy now. ---
-
 
 depositedEnergyECAL_f[3], depositedEnergyECAL_r[3]; total energy deposited in different layers. 0 for absorb, 1 for scinti, 2 for Cheren1 + Cheren2
 depositedIonEnergyECAL_f[3], depositedIonEnergyECAL_r[3]; Ion energy deposited in different layers. ~
 depositedElecEnergyECAL_f[3], depositedElecEnergyECAL_r[3]; Elect energy deposited in different layers. ~
 
 So typically the command for drawing the scintillation energy:
-"tree->Draw("depositedIonEnergyECAL_f[1]+depositedIonEnergyECAL_f[2]+depositedIonEnergyECAL_r[1]+depositedIonEnergyECAL_r[2]")"
+tree->Draw("depositedIonEnergyECAL_f[1]+depositedIonEnergyECAL_f[2]+depositedIonEnergyECAL_r[1]+depositedIonEnergyECAL_r[2]")
 
 
 These variables pick out the energy by particle types
 From 0 to 7 are pi-, e+, e, photon, pi+, k, n, p
+For example: tree->Draw("depositedEnergyECAL_absorb_f_particleID[2]")
+shows the total energy in absorb deposited by electrons in the shower 
 
 depositedEnergyECAL_absorb_f_particleID[8];
 depositedEnergyECAL_absorb_r_particleID[8];

@@ -9,7 +9,7 @@
 //produce the ana file
 //change the tag and energy below to analyse different root files
 
-const float sampling_fraction = 100 / 2.1;
+//const float sampling_fraction = 100 / 2.1;
 void ana_dream()
 {
     char inputfilename[120];

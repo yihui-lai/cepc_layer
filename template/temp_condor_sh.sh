@@ -38,7 +38,7 @@ echo \$LD_LIBRARY_PATH
 #
 
 
- ./CEPC_CaloTiming -c $temp_name -m run_${energy}GeV_${particle}_N${event}.mac -o ${particle}_${energy}GeV_N${event}_${tag} > run_${energy}GeV_${particle}_N${event}_${tag}.log
+ ./CEPC_CaloTiming -c $temp_name -m ./template/run_${energy}GeV_${particle}_N${event}.mac -o ${particle}_${energy}GeV_N${event}_${tag} > run_${energy}GeV_${particle}_N${event}_${tag}.log
 
 exitcode=\$?
 

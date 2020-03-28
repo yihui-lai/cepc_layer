@@ -1,3 +1,0 @@
-Some files used to analyze the simulation data.
-ana_dream.cc is used to create a new root file which containing energy distributions and could be further used by ana_component_dream.C
-get_reso_vs_Ein_dream.cc is used to plot "something vs E_True"
