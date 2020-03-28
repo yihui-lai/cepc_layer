@@ -17,7 +17,7 @@ The detector looks like this
 Note 2: Configuration
 ./template.cfg is the configuration file. You can change the size, material of detector by changing the corresponding parameters.
 
-Some parameters like:
+Some parameters are 
 ecal_material: first layer (absorb)
 scinti_material: seconde layer (scinti)
 Cherenc_material: third (Cheren1)
