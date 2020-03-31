@@ -106,7 +106,14 @@ void SteppingAction::UserSteppingAction(const G4Step *theStep)
   G4double global_z = thePrePosition.z() / mm;
 
   G4double energy = theStep->GetTotalEnergyDeposit();
-  G4double energyIon = energy - theStep->GetNonIonizingEnergyDeposit();
+  G4double energyIon=0;
+  if(theStep->GetStepLength()>0){energyIon = (energy - theStep->GetNonIonizingEnergyDeposit())/(1+0.126*mm*energy/MeV/theStep->GetStepLength());}else{
+  energyIon = (energy - theStep->GetNonIonizingEnergyDeposit());
+  }
+  if(((thePrePoint->GetGlobalTime() / ns) - global_z / mm / 300. - 19 / 3.)>75) energyIon=0;
+
+//cout << " step length = " << theStep->GetStepLength() <<" denominator = "<<(1+0.126*mm*energy/MeV/theStep->GetStepLength())<<" energyIon = "<<energyIon<< endl;
+
   G4double energyElec = 0.;
   //total energy by particle types
   G4double energyPion_n = 0.;
