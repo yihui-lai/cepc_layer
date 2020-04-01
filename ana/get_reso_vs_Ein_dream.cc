@@ -10,10 +10,11 @@
 //need to change parameters in get_reso_vs_Ein_dream(){...}
 
 //double sampling_frac_e_scinti[6]={65.55,60.49,58.95,58.13,57.22,56.59};
-double sampling_frac_e_scinti = 34.29;
+double sampling_frac_e_scinti = 48;
 bool Count_CherenPhoton_in_scinti_fiber = false;
 bool Count_scinti_in_cheren_fiber = true;
 bool savepictures = true;
+bool calibrate_use_last_pion = true;
 
 void CC_scinti(const char *inputfilename, const char *tagname, double energy, double *aamean, double *aarms)
 {
@@ -198,7 +199,7 @@ void get_reso_vs_Ein_dream()
     aatruemean[3] = 100;
     aatruemean[4] = 150;
     aatruemean[5] = 375;
-    char dtag[100] = "layer"; // file tag, shoule be changed
+    char dtag[100] = "add_corr_ion_25nstime_dream"; // file tag, shoule be changed
 
     ///////////////////////////////////////////
     //end
@@ -343,7 +344,13 @@ void get_reso_vs_Ein_dream()
         cout << "C/S: " << C_to_S[l] << " S:" << SS[l] << endl;
     }
 
-    /*
+   
+
+
+
+
+/*
+ 
     //add functions here, change the way calculating E total and E reso
     //rotating method
     for (int loop_f = 3; loop_f < npoints; loop_f++)
@@ -360,10 +367,6 @@ void get_reso_vs_Ein_dream()
         float depositedElecEnergyECAL_f[3], depositedElecEnergyECAL_r[3];
         float depositedEnergyECAL_f[3], depositedEnergyECAL_r[3];
 
-        float depositedEnergyECAL_scinti_f[8];
-        float depositedEnergyECAL_scinti_r[8];
-        float depositedIonEnergyECAL_scinti_f[8];
-        float depositedIonEnergyECAL_scinti_r[8];
 
         t1->SetBranchAddress("tot_phot_cer_ECAL_scinti_f_total", &tot_phot_cer_ECAL_scinti_f_total);
         t1->SetBranchAddress("tot_phot_cer_ECAL_scinti_r_total", &tot_phot_cer_ECAL_scinti_r_total);
@@ -375,11 +378,6 @@ void get_reso_vs_Ein_dream()
         t1->SetBranchAddress("depositedElecEnergyECAL_r", &depositedElecEnergyECAL_r);
         t1->SetBranchAddress("depositedIonEnergyECAL_f", &depositedIonEnergyECAL_f);
         t1->SetBranchAddress("depositedIonEnergyECAL_r", &depositedIonEnergyECAL_r);
-
-        t1->SetBranchAddress("depositedEnergyECAL_scinti_f", &depositedEnergyECAL_scinti_f);
-        t1->SetBranchAddress("depositedEnergyECAL_scinti_r", &depositedEnergyECAL_scinti_r);
-        t1->SetBranchAddress("depositedIonEnergyECAL_scinti_f", &depositedIonEnergyECAL_scinti_f);
-        t1->SetBranchAddress("depositedIonEnergyECAL_scinti_r", &depositedIonEnergyECAL_scinti_r);
 
         const int nentries = t1->GetEntries();
         cout << "*******************************cali: " << cali_ce[loop_f] << " " << cali_sc[loop_f] << endl;
@@ -396,7 +394,7 @@ void get_reso_vs_Ein_dream()
             {
                 C_E[ii] = (tot_phot_cer_ECAL_cheren_f_total + tot_phot_cer_ECAL_cheren_r_total) / cali_ce[loop_f];
             }
-            S_E[ii] = (depositedEnergyECAL_f[1] - depositedIonEnergyECAL_f[1] + depositedEnergyECAL_r[1] - depositedIonEnergyECAL_r[1]) * sampling_frac_e_scinti / aatruemean[loop_f] / cali_sc[loop_f];
+            S_E[ii] = (depositedIonEnergyECAL_f[1] +depositedIonEnergyECAL_r[1]) * sampling_frac_e_scinti / aatruemean[loop_f] / cali_sc[loop_f];
         }
 
         auto g_fit = new TGraph(nentries, S_E, C_E);
@@ -436,7 +434,7 @@ void get_reso_vs_Ein_dream()
             {
                 yy = (tot_phot_cer_ECAL_cheren_f_total + tot_phot_cer_ECAL_cheren_r_total) / cali_ce[loop_f];
             }
-            xx = (depositedEnergyECAL_f[1] - depositedIonEnergyECAL_f[1] + depositedEnergyECAL_r[1] - depositedIonEnergyECAL_r[1]) * sampling_frac_e_scinti / aatruemean[loop_f] / cali_sc[loop_f];
+            xx = (depositedIonEnergyECAL_f[1] + depositedIonEnergyECAL_r[1]) / aatruemean[loop_f] / cali_sc[loop_f];
 
             //xx=((depositedEnergyECAL_scinti_f[1]- depositedIonEnergyECAL_scinti_f[1] +depositedEnergyECAL_scinti_r[1]- depositedIonEnergyECAL_scinti_r[1])*51.5   + (depositedEnergyECAL_scinti_f[7]- depositedIonEnergyECAL_scinti_f[7] +depositedEnergyECAL_scinti_r[7]- depositedIonEnergyECAL_scinti_r[7])*15 + (depositedEnergyECAL_scinti_f[2]- depositedIonEnergyECAL_scinti_f[2] +depositedEnergyECAL_scinti_r[2]- depositedIonEnergyECAL_scinti_r[2])*51.5)/aatruemean[loop_f]/cali_sc[loop_f];
 
@@ -456,7 +454,11 @@ void get_reso_vs_Ein_dream()
         double pp2 = ff1->GetParameter(2);
         E_reso[loop_f] = pp2 / pp1;
     }
+
 */
+
+
+
 
     //plots
     double arrmean[npoints];
@@ -473,7 +475,7 @@ void get_reso_vs_Ein_dream()
     lgd->SetTextSize(0.04);
     lgd->SetTextFont(62);
     lgd->SetFillColor(0);
-    TH1 *frame = new TH1F("frame", "", 1000, 0, 210);
+    TH1 *frame = new TH1F("frame", "", 1000, 0, 400);
     frame->SetMinimum(0);
     frame->SetMaximum(1.1);
     frame->SetStats(0);
@@ -540,6 +542,7 @@ void get_reso_vs_Ein_dream()
     for (int k = 0; k < npoints; k++)
     {
         arrmean[k] = rrmeans[k][0] / rrmeans[k][0];
+        if(calibrate_use_last_pion)  arrmean[k] = rrmeans[k][0] / rrmeans[5][1];
     }
     auto g_uniform = new TGraph(npoints, aatruemean, arrmean);
 
@@ -549,18 +552,19 @@ void get_reso_vs_Ein_dream()
         for (int k = 0; k < npoints; k++)
         {
             arrmean[k] = rrmeans[k][1] / rrmeans[k][0];
+            if(calibrate_use_last_pion)  arrmean[k] = rrmeans[k][1] / rrmeans[5][1];
         }
         auto g_ss = new TGraph(npoints, aatruemean, arrmean);
         g_ss->SetMarkerColor(kBlue);
         g_ss->SetMarkerStyle(21);
         g_ss->SetMarkerSize(1.5);
         g_ss->SetLineColor(kBlue);
-        g_ss->Draw("CP");
+        g_ss->Draw("P");
         g_uniform->SetMarkerColor(kGreen);
         g_uniform->SetMarkerStyle(23);
         g_uniform->SetMarkerSize(1.5);
         g_uniform->SetLineColor(kGreen);
-        g_uniform->Draw("CP");
+        g_uniform->Draw("P");
         lgd->AddEntry(g_uniform, "e-", "L");
         lgd->AddEntry(g_ss, "pi-", "L");
         frame->SetMinimum(0.2);
